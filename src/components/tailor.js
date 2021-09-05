@@ -226,6 +226,7 @@ export default function Tailor() {
 
         return(
 
+
             <div className={classes.root}>
                 <br/>
                 <AppBar position="static" style={{ background: '#14447a'}}>

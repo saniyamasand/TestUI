@@ -1,5 +1,6 @@
 import React from 'react'
 import MaterialTable from 'material-table'
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 export default function Client() {
     const { useState } = React;
@@ -14,10 +15,11 @@ export default function Client() {
         { name: 'Mehmet', phone: '+91 9383939283', address: 'Lal Bagh Road 589373', measure: 'Shoulder : 14 , Waist : 25 , Bust : 34' },
             { name: 'Taehyung', phone: '+91 9274826352',address: 'Shanthi Nagar 562997' , measure: "Shoulder : 15, Waist : 26 , Bust : 36"},
             { name: 'Yoongi', phone: '+91 9274827491', address :'Hebbal 429428', measure: "Shoulder : 13, Waist : 34 , Bust : 35" },
-            { name: 'Heoseok', phone: '+91 9628492739', address: 'Bangalore Club 491893', measure: "Shoulder : 15, Waist : 34 , Bust : 32"}
+            { name: 'Hoseok', phone: '+91 9628492739', address: 'Bangalore Club 491893', measure: "Shoulder : 15, Waist : 34 , Bust : 32"}
     ]);
         return (
             <div style={{ maxWidth: '100%' }}>
+                <CssBaseline />
                 <MaterialTable
                     columns={columns}
                     data={data}
