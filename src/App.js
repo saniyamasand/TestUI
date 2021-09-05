@@ -9,22 +9,20 @@ function App() {
       <div>
           <div className="demo-big-content">
               <Layout>
-                  <Header title="Designs"  style={{color: 'white', backgroundColor:'#FF8C94'}}scroll>
+                  <Header title="Designs"  style={{color: 'white', backgroundColor:'#FF8C94'}} scroll>
                       <Navigation>
-                          <Link to="/resume">Clients</Link>
-                          <Link to="/aboutme">Appointment</Link>
-                          <Link to="/contacts">Orders</Link>
+                          <Link to="/appointments">Appointment</Link>
+                          <Link to="/transactions">Orders</Link>
                           <Link to="/tailor">Tailors</Link>
-                          <Link to="/authors">Person</Link>
+                          <Link to="/clients">Clients</Link>
                       </Navigation>
                   </Header>
                   <Drawer title="Title">
                       <Navigation>
-                          <Link to="/resume">Clients</Link>
-                          <Link to="/aboutme">Appointment</Link>
-                          <Link to="/contacts">Contact</Link>
+                          <Link to="/appointments">Appointment</Link>
+                          <Link to="/transactions">Orders</Link>
                           <Link to="/tailor">Tailors</Link>
-                          <Link to="/authors">Person</Link>
+                          <Link to="/clients">Clients</Link>
                       </Navigation>
                   </Drawer>
                   <Content>

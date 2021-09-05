@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function Contacts(props){
+export default function Transactions(props){
     const classes = useStyles();
     const [authorName ,setName] = useState('');
 
@@ -85,4 +85,4 @@ export default function Contacts(props){
     )
 };
 
-//export default Contacts;
+//export default Transactions;

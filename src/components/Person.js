@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, {useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -9,6 +9,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import SearchBar from "material-ui-search-bar";
+import axios from "axios";
 
 
 
@@ -19,23 +20,45 @@ const useStyles = makeStyles({
     }
 });
 
-const originalRows = [
+/*const originalRows = [
     { name: "Pizza", calories: 200, fat: 6.0, carbs: 24, protein: 4.0 },
     { name: "Hot Dog", calories: 300, fat: 6.0, carbs: 24, protein: 4.0 },
     { name: "Burger", calories: 400, fat: 6.0, carbs: 24, protein: 4.0 },
     { name: "Hamburger", calories: 500, fat: 6.0, carbs: 24, protein: 4.0 },
     { name: "Fries", calories: 600, fat: 6.0, carbs: 24, protein: 4.0 },
     { name: "Ice Cream", calories: 700, fat: 6.0, carbs: 24, protein: 4.0 }
-];
+];*/
 
 export default function Person (){
+    const createData = (id, name, join_date) => ({
+        id,
+        name,
+        join_date,
+        isEditMode: false
+    });
 
-    const [rows, setRows] = React.useState(originalRows);
+    const tailor_data = [];
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await axios(
+                `http://localhost:3001/demoApi/tailors`,
+            );
+            result.data.forEach(film => tailor_data.push(createData(film.tailorId , film.tailorName , film.createdAt.substring(0,10))))
+        };
+
+        fetchData();
+    });
+
+
+    //const [t_rows, setTrows] = React.useState(tailor_data);
+
+    const [rows, setRows] = React.useState(tailor_data);
     const [searched, setSearched] = React.useState("");
     const classes = useStyles();
 
     const requestSearch = (searchedVal) => {
-        const filteredRows = originalRows.filter((row) => {
+        const filteredRows = tailor_data.filter((row) => {
             return row.name.toLowerCase().includes(searchedVal.toLowerCase());
         });
         setRows(filteredRows);
@@ -58,23 +81,17 @@ export default function Person (){
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>Food (100g serving)</TableCell>
-                                <TableCell align="right">Calories</TableCell>
-                                <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                                <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                                <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                                <TableCell>ID</TableCell>
+                                <TableCell align="right">Person Name</TableCell>
+                                <TableCell align="right">Person Date</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {rows.map((row) => (
                                 <TableRow key={row.name}>
-                                    <TableCell component="th" scope="row">
-                                        {row.name}
-                                    </TableCell>
-                                    <TableCell align="right">{row.calories}</TableCell>
-                                    <TableCell align="right">{row.fat}</TableCell>
-                                    <TableCell align="right">{row.carbs}</TableCell>
-                                    <TableCell align="right">{row.protein}</TableCell>
+                                    <TableCell align="right">{row.id}</TableCell>
+                                    <TableCell align="right">{row.name}</TableCell>
+                                    <TableCell align="right">{row.join_date}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

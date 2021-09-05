@@ -21,6 +21,7 @@ import EditIcon from "@material-ui/icons/EditOutlined";
 import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
 import RevertIcon from "@material-ui/icons/NotInterestedOutlined";
 import axios from 'axios';
+import MaterialTable from "material-table";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -338,6 +339,19 @@ export default function Tailor() {
                                         </TableBody>
                                     </Table>
                                 </Paper>
+                                <MaterialTable
+                                    columns={[
+                                        { title: 'Adı', field: 'name' },
+                                        { title: 'Soyadı', field: 'surname' },
+                                        { title: 'Doğum Yılı', field: 'birthYear', type: 'numeric' },
+                                        { title: 'Doğum Yeri', field: 'birthCity', lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' } }
+                                    ]}
+                                    data={[{ name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 34 },
+                                        { name: 'Taehyung', surname: 'Kim', birthYear: 1997, birthCity: 63 },
+                                        { name: 'Yoongi', surname: 'Min', birthYear: 1992, birthCity: 63 },
+                                        { name: 'Heoseok', surname: 'Jung', birthYear: 1924, birthCity: 34 }]}
+                                    title="Demo Title"
+                                />
                             </div>
                         </Grid>
                     </Grid>

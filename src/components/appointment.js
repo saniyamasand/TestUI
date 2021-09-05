@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function Aboutme(){
+export default function Appointment(){
     const classes = useStyles();
     return(
            <Paper>
@@ -130,4 +130,4 @@ export default function Aboutme(){
         )
 }
 
-/*export default Aboutme;*/
+/*export default Appointment;*/

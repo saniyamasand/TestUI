@@ -1,11 +1,12 @@
 import React  from "react";
+import { Link } from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+//import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -38,7 +39,7 @@ function Copyright() {
         <Typography variant="body2" color="textSecondary" align="center">
             {'Copyright © '}
             <Link color="inherit" href="https://www.youtube.com/">
-                Your Website
+                Karma Designs
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
@@ -115,6 +116,8 @@ export default  function LandingPage(){
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            component={Link}
+                            to="/appointments"
                         >
                             Sign In
                         </Button>
@@ -126,7 +129,7 @@ export default  function LandingPage(){
                             </Grid>
                             <Grid item>
                                 <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
+                                    Don't have an account? Sign Up
                                 </Link>
                             </Grid>
                         </Grid>
