@@ -1,88 +1,64 @@
-import React, {useState} from "react";
-import TextField from "@material-ui/core/TextField";
-import {makeStyles} from "@material-ui/core/styles";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Button from "@material-ui/core/Button";
-import axios from 'axios';
-const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-}));
+import React from 'react'
+import MaterialTable from 'material-table'
+
+export default function Transactions() {
+    const { useState } = React;
+    const [columns, setColumns] = useState([
+        { title: 'Customer name', field: 'customername'},
+        { title: 'Transaction amount', field: 'transcationamount' },
+        { title: 'Transaction date', field: 'transactiondate'},
 
 
+    ]);
+    const [data, setData] = useState([
+        { customername: 'Saniya', transcationamount: '7000', transactiondate: "16/07/2021"},
+    ]);
 
-export default function Transactions(props){
-    const classes = useStyles();
-    const [authorName ,setName] = useState('');
+    return (
+        <div style={{ maxWidth: '100%' }}>
+            <MaterialTable
+                columns={columns}
+                data={data}
+                editable={{
+                    onRowAdd: newData =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                                setData([...data, newData]);
 
-    function onCreateAuthor(e){
-        e.preventDefault();
-        const postAuth = {
-            authorName
-        }
+                                resolve();
+                            }, 1000)
+                        }),
+                    onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                                const dataUpdate = [...data];
+                                const index = oldData.tableData.id;
+                                dataUpdate[index] = newData;
+                                setData([...dataUpdate]);
 
-        axios
-            .post(
-            'http://localhost:3001/demoApi/author',
-                postAuth,
-            ).then(response => {
-                console.log(response);
-        } );
-    }
+                                resolve();
+                            }, 1000)
+                        }),
+                    onRowDelete: oldData =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                                const dataDelete = [...data];
+                                const index = oldData.tableData.id;
+                                dataDelete.splice(index, 1);
+                                setData([...dataDelete]);
 
+                                resolve()
+                            }, 1000)
+                        }),
+                }}
+                title="Customer orders"
+                options={{
+                    filtering: true,
+                    headerStyle: {backgroundColor: 'lightcoral', color: 'snow', borderWidth: 5 ,
+                        borderTopColor:'darkmagenta', borderColor:'darkslategray' , fontSize:18 , borderBlockColor:'darkslategray'},
 
-
-
-    return(
-        <div>
-            <h3> Contacts is cool! </h3>
-            <form className={classes.form}  onSubmit={onCreateAuthor} noValidate >
-                <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="NAME"
-                    label="Name"
-                    type="name"
-                    id="name"
-                    value = {authorName}
-                    onInput={ e => setName(e.target.value)}
-                    autoFocus
-                />
-                <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Remember me"
-                />
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                >
-                    Create Author
-                </Button>
-            </form>
+                }}
+            />
         </div>
-
     )
-};
-
-//export default Transactions;
+}

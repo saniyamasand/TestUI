@@ -1,174 +1,69 @@
-import React, {useEffect, useState} from "react";
-import PropTypes from 'prop-types';
-import {Typography, Box, AppBar, Tab, Grid, Tabs, } from "@material-ui/core";
-import {makeStyles, withStyles} from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Avatar from "@material-ui/core/Avatar";
-import Container from "@material-ui/core/Container";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Input from "@material-ui/core/Input";
-import Paper from "@material-ui/core/Paper";
-import IconButton from "@material-ui/core/IconButton";
-
-// Icons
-import EditIcon from "@material-ui/icons/EditOutlined";
-import DoneIcon from "@material-ui/icons/DoneAllTwoTone";
-import RevertIcon from "@material-ui/icons/NotInterestedOutlined";
-import axios from 'axios';
-import MaterialTable from "material-table";
-
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <Typography
-            component="div"
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && <Box p={3}>{children}</Box>}
-        </Typography>
-    );
-}
-
-TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.any.isRequired,
-    value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
-}
-
-const StyledTableCell = withStyles((theme) => ({
-    head: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
-    },
-    body: {
-        fontSize: 14,
-    },
-}))(TableCell);
-
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
-    },
-
-    tab: {
-        minWidth: 200, // number of your choice
-        width: 500, // number of your choice
-    } ,
-
-    heading: {
-        fontSize: theme.typography.pxToRem(15),
-        fontWeight: theme.typography.fontWeightMedium,
-    },
-
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(1),
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-    table: {
-        minWidth: 650
-    },
-    selectTableCell: {
-        width: 60
-    },
-    tableCell: {
-        width: 130,
-        height: 40
-    },
-    input: {
-        width: 130,
-        height: 40
-    }
-}));
-
-const createData = (id, name, join_date) => ({
-    id,
-    name,
-    join_date,
-    isEditMode: false
-});
-const CustomTableCell = ({ row, name, onChange }) => {
-    const classes = useStyles();
-    const { isEditMode } = row;
-    return (
-        <TableCell align="left" className={classes.tableCell}>
-            {isEditMode ? (
-                <Input
-                    value={row[name]}
-                    name={name}
-                    onChange={e => onChange(e, row)}
-                    className={classes.input}
-                />
-            ) : (
-                row[name]
-            )}
-        </TableCell>
-    );
-};
+import React from 'react'
+import MaterialTable from 'material-table'
 
 export default function Tailor() {
-    const classes = useStyles();
-    const [value, setValue] = React.useState(0);
-    const [tailorName ,setTailorName] = useState('');
-    const [tailorPhone ,setTailorPhone] = useState('');
+    const { useState } = React;
+    const [columns, setColumns] = useState([
+        { title: 'Tailor Name', field: 'tailorname'},
+        { title: 'Tailor Phone Number', field: 'tailorphone', initialEditValue: '+91' },
+        { title: 'Customer name', field: 'customername'},
 
-    function onCreateTailor(e){
-        e.preventDefault();
-        const postTailor = {
-            tailorName,
-            tailorPhone
-        }
 
-        axios
-            .post(
-                'http://localhost:3001/demoApi/tailor',
-                postTailor,
-            ).then(response => {
-            console.log(response);
-        } );
-    }
+    ]);
+    const [data, setData] = useState([
+          { tailorname: 'Roopa', tailorphone: '+91 9628492739', customername: "saniya"},
+    ]);
 
-    const tailor_data = []
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await axios(
-                `http://localhost:3001/demoApi/tailors`,
-            );
-            result.data.forEach(film => tailor_data.push(createData(film.tailorId , film.tailorName , film.createdAt.substring(0,10))))
-        };
+<<<<<<< HEAD
+    return (
+        <div style={{ maxWidth: '100%' }}>
+            <MaterialTable
+                columns={columns}
+                data={data}
+                editable={{
+                    onRowAdd: newData =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                                setData([...data, newData]);
 
+                                resolve();
+                            }, 1000)
+                        }),
+                    onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                                const dataUpdate = [...data];
+                                const index = oldData.tableData.id;
+                                dataUpdate[index] = newData;
+                                setData([...dataUpdate]);
+
+                                resolve();
+                            }, 1000)
+                        }),
+                    onRowDelete: oldData =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                                const dataDelete = [...data];
+                                const index = oldData.tableData.id;
+                                dataDelete.splice(index, 1);
+                                setData([...dataDelete]);
+
+                                resolve()
+                            }, 1000)
+                        }),
+                }}
+                title="Tailor details"
+                options={{
+                    filtering: true,
+                    headerStyle: {backgroundColor: 'lightcoral', color: 'snow', borderWidth: 5 ,
+                        borderTopColor:'darkmagenta', borderColor:'darkslategray' , fontSize:18 , borderBlockColor:'darkslategray'},
+
+                }}
+            />
+        </div>
+    )
+}
+=======
         fetchData();
     });
     const handleChange = (event, newValue) => {
@@ -361,3 +256,4 @@ export default function Tailor() {
 
         )
 };
+>>>>>>> 956ff74c4dad645f5beb8f6264c49e847b5a2523
