@@ -11,7 +11,8 @@ export default function Transactions() {
 
     ]);
     const [data, setData] = useState([
-        { customername: 'Saniya', transcationamount: '7000', transactiondate: "16/07/2021"},
+        { customername: 'Saniya', transcationamount: '7000', transactiondate: "2018-11-12"},
+        { customername: 'Tanya', transcationamount: '9000', transactiondate: "2018-11-10"},
     ]);
 
     return (
