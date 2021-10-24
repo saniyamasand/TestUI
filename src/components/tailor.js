@@ -1,21 +1,56 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import MaterialTable from 'material-table'
+import axios from "axios";
 
 export default function Tailor() {
     const { useState } = React;
+
+    const [value, setValue] = React.useState(0);
+
     const [columns, setColumns] = useState([
         { title: 'Tailor Name', field: 'tailorname'},
-        { title: 'Tailor Phone Number', field: 'tailorphone', initialEditValue: '+91' },
+        { title: 'Tailor Phone Number', field: 'tailorphone', initialEditValue: '+91' , validate: rowData => rowData.tailorphone.length < 14 ? 'Phone Number must have 10 numbers' : '', },
         { title: 'Customer name', field: 'customername'},
 
 
     ]);
-    const [data, setData] = useState([
+
+    const tailor_info = []
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const details = await axios(
+                'http://localhost:3001/demoApi/tailors',
+            );
+            details.data.forEach(x => tailor_info.push({id : x.tailorId, tailorname: x.tailorName, tailorphone: x.tailorPhone , customername:x.customerName}));
+
+        };
+
+        fetchData();
+    });
+
+
+    const [data, setData] = React.useState(tailor_info);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
+
+
+
+
+    /*const [data, setData] = useState([
           { tailorname: 'Roopa', tailorphone: '+91 9628492739', customername: "saniya"},
           { tailorname: 'Ashalat', tailorphone: '+91 936283928', customername: "tanya"},
         { tailorname: 'Babu', tailorphone: '+91 9729473838', customername: "sanya"},
 
-    ]);
+    ]);*/
+
+
+
+    const te = data.map((item) => <li key={item.id}>{item.tailorphone}</li>)
 
     return (
         <div style={{ maxWidth: '100%' }}>
@@ -62,6 +97,9 @@ export default function Tailor() {
 
                 }}
             />
+            <ul>
+                <li>h</li>
+            </ul>
         </div>
     )
 }

@@ -2,14 +2,18 @@ import React from 'react'
 import MaterialTable from 'material-table'
 
 export default function Transactions() {
+    const [value, setValue] = React.useState(0);
     const { useState } = React;
     const [columns, setColumns] = useState([
         { title: 'Customer name', field: 'customername'},
         { title: 'Transaction amount', field: 'transcationamount' },
-        { title: 'Transaction date', field: 'transactiondate'},
+        { title: 'Transaction date', field: 'transactiondate', type: 'date'},
 
 
     ]);
+
+
+
     const [data, setData] = useState([
         { customername: 'Saniya', transcationamount: '7000', transactiondate: "2018-11-12"},
         { customername: 'Tanya', transcationamount: '9000', transactiondate: "2018-11-10"},

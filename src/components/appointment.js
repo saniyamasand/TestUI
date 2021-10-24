@@ -121,7 +121,7 @@ export default function Appointment(){
 
     const [columns, setColumns] = useState([
         { title: 'Name', field: 'name', type : 'string',validate: rowData => rowData.name === '' ? 'Name cannot be empty' : ''},
-        { title: 'Order Description', field: 'order' , validate: rowData => rowData.order === '' ? 'Order cannot be empty' : ''},
+        { title: 'Order Description', field: 'order' ,type : 'string', validate: rowData => rowData.order === '' ? 'Order cannot be empty' : ''},
         { title: 'Date', field: 'date', type: 'date', dateSetting: {
                 format: 'dd/MM/yyyy'},  validate: rowData => rowData.date === '' ? 'Date cannot be empty' : ''},
         { title: 'Time', field: 'time' ,validate: rowData => rowData.time === '' ? 'Time cannot be empty' : ''}
