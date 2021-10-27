@@ -110,7 +110,7 @@ function schedData(record){
 
 
 
-const currentDate = '2018-11-18';
+const currentDate = new Date().toISOString().split('T')[0];
 
 
 export default function Appointment(){
@@ -128,29 +128,32 @@ export default function Appointment(){
 
     ]);
 
-    const appt_info = []
-    const calender = []
+    const calender = [];
+    const appt_info = [];
+
+    const [data, setData] = React.useState([]);
 
     useEffect(() => {
+
         const fetchData = async () => {
             const details = await axios(
                 'http://localhost:3001/demoApi/appts',
             );
+            //setData(details.data)
             details.data.forEach(x => appt_info.push({id : x.apptId, name: x.orderCustomer, order: x.orderDescription , date:  x.apptDate , time : x.apptTime}));
             details.data.forEach(x => calender.push(schedData({name: x.orderCustomer, order: x.orderDescription , date:  x.apptDate , time : x.apptTime})));
+            setData(appt_info);
         };
 
         fetchData();
-    });
+    },[]);
 
 
-    const [data, setData] = React.useState(appt_info);
+
+
+
     const [calData , setCal] = React.useState(calender);
     const ApptList = calData;
-
-
-
-
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -172,7 +175,7 @@ export default function Appointment(){
                 postAppt,
             ).then(response => {
                 console.log(response);
-        })
+            })
     }
 
     // Edit the rows :  PUT method
@@ -231,6 +234,7 @@ export default function Appointment(){
                                                 setTimeout(() => {
                                                     setData([...data, newData]);
                                                     handleRowAdd(newData)
+
                                                     resolve();
                                                 }, 1000)
                                             }),
