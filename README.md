@@ -1,7 +1,7 @@
 <b><u>Prerequisites for the Application </u></b>
 - Install an appropriate Integrated Development Environment (preferrably IntelliJ)
-- Install Node.js 
-- Install MySQL
+- Install Node.js from https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+- Install MySQL from https://dev.mysql.com/downloads/workbench/
 
 
 <b> Backend Setup </b>
