@@ -131,6 +131,10 @@ export default function Transactions() {
                     headerStyle: {backgroundColor: 'lightcoral', color: 'snow', borderWidth: 5 ,
                         borderTopColor:'darkmagenta', borderColor:'darkslategray' , fontSize:18 , borderBlockColor:'darkslategray'},
 
+                    exportButton: {
+                        pdf: true
+                    }
+
                 }}
             />
         </div>
