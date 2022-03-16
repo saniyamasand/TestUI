@@ -1,3 +1,9 @@
+<b><u>Prerequisites for the Application </u></b>
+- Install an appropriate Integrated Development Environment (preferrably IntelliJ)
+- Install Node.js 
+- Install MySQL
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
