@@ -15,7 +15,7 @@
 
 
 <b> Frontend Setup </b>
-- Clone the repositiory from : 
+- Clone the repositiory from : https://github.com/saniyamasand/TestUI.git 
 -  Install the following packages    
     - In the terminal of the IDE , run the command "npm i react-router-dom"
     - In the terminal of the IDE , run the command "npm install @material-ui/core"
