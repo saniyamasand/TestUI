@@ -5,7 +5,7 @@
 
 
 <b> Backend Setup </b>
-- Clone the repositiory from : 
+- Clone the repositiory from : https://github.com/saniyamasand/seq_tut.git
 - Install the following packages    
     - In the terminal of the IDE , run the command "npm i sequelize"
     - In the terminal of the IDE , run the command "npm i axios"
